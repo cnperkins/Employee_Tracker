@@ -1,24 +1,67 @@
-var mysql = require("mysql");
 var inquirer = require("inquirer");
-
-var connection = mysql.createConnection({
-    host: "localhost",
-
-    // Your port; if not 3306
-    port: 3306,
-
-    // Your username
-    user: "root",
-
-    // Your password
-    password: "Peaches04$",
-    database: "employee_trackerDB"
-});
-
-connection.connect(function (err) {
+var db = require("./db");
+db.connection.connect(function (err) {
     if (err) throw err;
     runSearch();
 });
+
+
+function addDepartment() {
+    inquirer.prompt({
+        name: "department_name",
+        type: "input",
+        message: "What is the new department name?"
+    }).then(answers => {
+        console.log(answers)
+        db.create_new_department(answers.department_name).then(res => {
+            runSearch()
+        })
+    })
+}
+
+function addRole() {
+    inquirer.prompt({
+
+        name: "role_title",
+        type: "input",
+        message: "What is the new role title?"
+    }).then(answers => {
+        console.log(answers)
+        db.create_new_role(answers.role_title).then(res => {
+        })
+    })
+    inquirer.prompt({
+        name: "role_salary",
+        type: "input",
+        message: "What is the new role salary?"
+    }).then(answers => {
+        console.log(answers)
+        db.create_new_role(answers.role_salary).then(res => {
+        })
+    })
+
+    inquirer.prompt({
+        name: "role_department",
+        type: "input",
+        message: "What is the new role department?"
+    }).then(answers => {
+        console.log(answers)
+        db.create_new_role(answers.role_department).then(res => {
+        })
+    })
+
+
+    inquirer.prompt({
+        name: "role_department_id",
+        type: "input",
+        message: "What is the new role department id?"
+    }).then(answers => {
+        console.log(answers)
+        db.create_new_role(answers.role_department_id).then(res => {
+            runSearch()
+        })
+    })
+}
 
 function runSearch() {
     inquirer
@@ -52,15 +95,21 @@ function runSearch() {
                     break;
 
                 case "View departments":
-                    viewDepartments();
+                    db.get_all_from_table("department").then(res => {
+                        console.log(res)
+                    })
                     break;
 
                 case "View roles":
-                    viewRoles();
+                    db.get_all_from_table("role").then(res => {
+                        console.log(res)
+                    })
                     break;
 
                 case "View employees":
-                    viewEmployees();
+                    db.get_all_from_table("employee").then(res => {
+                        console.log(res)
+                    })
                     break;
 
                 case "Update employee role":
@@ -68,8 +117,10 @@ function runSearch() {
                     break;
 
                 case "Exit":
-                    connection.end();
+                    db.connection.end();
                     break;
             }
         });
 }
+
+
