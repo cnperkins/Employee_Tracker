@@ -20,48 +20,48 @@ function addDepartment() {
 }
 
 function addRole() {
-    inquirer.prompt({
+    inquirer.prompt([
+        {
+            name: "role_title",
+            type: "input",
+            message: "What is the new role title?"
+        }.then(answers => {
+            console.log(answers)
+            db.create_new_department(answers.role_title)
+        }),
 
-        name: "role_title",
-        type: "input",
-        message: "What is the new role title?"
-    }).then(answers => {
-        console.log(answers)
-        db.create_new_role(answers.role_title).then(res => {
-        })
-    })
-    inquirer.prompt({
-        name: "role_salary",
-        type: "input",
-        message: "What is the new role salary?"
-    }).then(answers => {
-        console.log(answers)
-        db.create_new_role(answers.role_salary).then(res => {
-        })
-    })
+        {
+            name: "role_salary",
+            type: "input",
+            message: "What is the new role salary?"
+        }.then(answers => {
+            console.log(answers)
+            db.create_new_department(answers.role_salary)
+        }),
 
-    inquirer.prompt({
-        name: "role_department",
-        type: "input",
-        message: "What is the new role department?"
-    }).then(answers => {
-        console.log(answers)
-        db.create_new_role(answers.role_department).then(res => {
-        })
-    })
+        {
+            name: "role_department",
+            type: "input",
+            message: "What is the new role department?"
+        }.then(answers => {
+            console.log(answers)
+            db.create_new_role(answers.role_department)
+        }),
 
 
-    inquirer.prompt({
-        name: "role_department_id",
-        type: "input",
-        message: "What is the new role department id?"
-    }).then(answers => {
-        console.log(answers)
-        db.create_new_role(answers.role_department_id).then(res => {
-            runSearch()
+        {
+            name: "role_department_id",
+            type: "input",
+            message: "What is the new role department id?"
+        }.then(answers => {
+            console.log(answers)
+            db.create_new_department(answers.role_department_id).then(res => {
+                runSearch();
+            })
         })
-    })
+    ])
 }
+
 
 function runSearch() {
     inquirer
@@ -97,18 +97,21 @@ function runSearch() {
                 case "View departments":
                     db.get_all_from_table("department").then(res => {
                         console.log(res)
+                        runSearch()
                     })
                     break;
 
                 case "View roles":
                     db.get_all_from_table("role").then(res => {
                         console.log(res)
+                        runSearch()
                     })
                     break;
 
                 case "View employees":
                     db.get_all_from_table("employee").then(res => {
                         console.log(res)
+                        runSearch()
                     })
                     break;
 

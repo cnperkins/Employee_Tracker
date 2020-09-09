@@ -42,7 +42,7 @@ const create_new_department = (department_name) => {
 const create_new_role = (role_title, role_salary, role_department, role_department_id) => {
     return new Promise(function (resolve, reject) {
         connection.query(`INSERT INTO role (title, salary, department, department_id)
-        VALUES ("${role_title}", ${role_salary}, "${role_department}", ${role_department_id})`, (err, results) => {
+        VALUES ("${role_title}", "${role_salary}", "${role_department}", "${role_department_id}")`, (err, results) => {
 
             if (err) {
                 return reject(err)
