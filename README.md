@@ -4,7 +4,7 @@ Description: This is Employee Traker, an easy way to view or make changes to you
 
 Here is a link to the recording: 
 
- 9/8/2020
+https://drive.google.com/file/d/1zeT2I5NdPUCrNwPWaRK6EavaxG_dy_MW/view 9/8/2020
 
 Here is my github repository link:
 
